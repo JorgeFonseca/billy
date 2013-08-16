@@ -48,14 +48,14 @@
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core-jpa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 
 		<!-- PERSISTENCE -->
@@ -140,6 +140,11 @@
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
+			<version>8.7</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-dom</artifactId>
 			<version>8.7</version>
 		</dependency>
 	</dependencies>

@@ -70,12 +70,24 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-envers</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+		<!-- LIQUIBASE -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
 
 		<!-- Query DSL -->
 		<dependency>
@@ -165,6 +177,7 @@
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.xml</include>
+					<include>liquibase.properties</include>
 				</includes>
 			</resource>
 			<resource>
@@ -294,6 +307,23 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>3.0.2</version>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>generateChangeLog</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<referenceUrl>persistence:BillyPortugalPersistenceUnit</referenceUrl>
+					<propertyFile>liquibase.properties</propertyFile>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
