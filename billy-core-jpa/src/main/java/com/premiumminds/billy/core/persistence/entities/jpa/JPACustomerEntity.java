@@ -55,6 +55,9 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
 
 	@Column(name = "TAX_ID")
 	protected String taxId;
+	
+	@Column(name = "AGE")
+	protected Integer age;
 
 	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
