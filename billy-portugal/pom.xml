@@ -330,7 +330,6 @@
 					</execution>
 				</executions>
 				<configuration>
-<!-- 					<referenceUrl>persistence:BillyPortugalPersistenceUnit</referenceUrl> -->
 					<propertyFile>liquibase.properties</propertyFile>
 				</configuration>
 				<dependencies>
