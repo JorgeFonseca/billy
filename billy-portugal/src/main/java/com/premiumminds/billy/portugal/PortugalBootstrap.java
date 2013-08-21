@@ -629,7 +629,8 @@ public class PortugalBootstrap {
 							.setTaxRegistrationNumber(taxRegistrationID)
 							.setBillingAddress(addressBuilder)
 							.setShippingAddress(addressBuilder)
-							.addAddress(addressBuilder, true);
+							.addAddress(addressBuilder, true)
+							.setReferralName("Migrado");
 
 					PTCustomerEntity customer = (PTCustomerEntity) customerBuilder
 							.build();

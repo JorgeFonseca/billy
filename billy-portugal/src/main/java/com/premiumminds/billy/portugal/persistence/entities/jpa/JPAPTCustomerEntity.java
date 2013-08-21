@@ -35,20 +35,33 @@ public class JPAPTCustomerEntity extends JPACustomerEntity implements
 		PTCustomerEntity {
 
 	private static final long serialVersionUID = 1L;
-
-	@Column(name = "REFERRAL_FIRSTNAME")
-	protected String referralFirstName;
 	
-	@Column(name = "REFERRAL_SURNAME")
-	protected String referralSurname;
+	@Column(name = "REFERRAL_NAME")
+	protected String referralName;
 
+//	@Column(name = "REFERRAL_FIRSTNAME")
+//	protected String referralFirstName;
+//	
+//	@Column(name = "REFERRAL_SURNAME")
+//	protected String referralSurname;
+
+//	@Override
+//	public String getReferralName() {
+//		return this.referralFirstName;
+//	}
+//
+//	@Override
+//	public void setReferralName(String referralName) {
+//		this.referralFirstName = referralName;
+//	}
+	
 	@Override
 	public String getReferralName() {
-		return this.referralFirstName;
+		return this.referralName;
 	}
 
 	@Override
 	public void setReferralName(String referralName) {
-		this.referralFirstName = referralName;
+		this.referralName = referralName;
 	}
 }
