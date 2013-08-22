@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+
+    Copyright (C) 2013 Premium Minds.
+
+    This file is part of billy portugal (PT Pack).
+
+    billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+
+    billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!-- Copyright (C) 2013 Premium Minds. This file is part of billy portugal 
+	(PT Pack). billy portugal (PT Pack) is free software: you can redistribute 
+	it and/or modify it under the terms of the GNU Lesser General Public License 
+	as published by the Free Software Foundation, either version 3 of the License, 
+	or (at your option) any later version. billy portugal (PT Pack) is distributed 
+	in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even 
+	the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+	See the GNU Lesser General Public License for more details. You should have 
+	received a copy of the GNU Lesser General Public License along with billy 
+	portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>. -->
+<!-- Copyright (C) 2013 Premium Minds. This file is part of billy portugal 
+	(PT Pack). billy portugal (PT Pack) is free software: you can redistribute 
+	it and/or modify it under the terms of the GNU Lesser General Public License 
+	as published by the Free Software Foundation, either version 3 of the License, 
+	or (at your option) any later version. billy portugal (PT Pack) is distributed 
+	in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even 
+	the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+	See the GNU Lesser General Public License for more details. You should have 
+	received a copy of the GNU Lesser General Public License along with billy 
+	portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>. -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangeloghttp://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+	<changeSet author="amonteiro (generated)" id="1377019221153-9">
+		<addColumn tableName="billy_pt_customer">
+			<column name="referral_firstname" type="VARCHAR(255)" />
+		</addColumn>
+		<rollback>
+			<dropColumn tableName="billy_pt_customer" columnName="referral_firstname" />
+		</rollback>
+	</changeSet>
+	<changeSet author="amonteiro (generated)" id="1377019221153-10">
+		<addColumn tableName="billy_pt_customer">
+			<column name="referral_surname" type="VARCHAR(255)" />
+		</addColumn>
+		<rollback>
+			<dropColumn tableName="billy_pt_customer" columnName="referral_surname" />
+		</rollback>
+	</changeSet>
+	<changeSet author="amonteiro (generated)" id="1377019221153-11">
+		<addColumn tableName="billy_pt_customer_aud">
+			<column name="referral_firstname" type="VARCHAR(255)" />
+		</addColumn>
+		<rollback>
+			<dropColumn tableName="billy_pt_customer_aud" columnName="referral_firstname" />
+		</rollback>
+	</changeSet>
+	<changeSet author="amonteiro (generated)" id="1377019221153-12">
+		<addColumn tableName="billy_pt_customer_aud">
+			<column name="referral_surname" type="VARCHAR(255)" />
+		</addColumn>
+		<rollback>
+			<dropColumn tableName="billy_pt_customer_aud" columnName="referral_surname" />
+		</rollback>
+	</changeSet>
+	<changeSet id="1377019221153-13" author="amonteiro">
+		<sql>
+			UPDATE billy_pt_customer
+			SET referral_firstname = referral_name
+		</sql>
+	</changeSet>
+	<!-- <changeSet id="1377019221153-5" author="amonteiro"> -->
+	<!-- <customChange -->
+	<!-- class="com.premiumminds.billy.portugal.migration.MigrationTest_1"> -->
+	<!-- </customChange> -->
+	<!-- <rollback></rollback> -->
+	<!-- </changeSet> -->
+	<changeSet author="amonteiro (generated)" id="1377019221153-14">
+		<dropColumn columnName="referral_name" tableName="billy_pt_customer" />
+		<rollback>
+			<addColumn tableName="billy_pt_customer">
+				<column name="referral_name" type="VARCHAR(255)"></column>
+			</addColumn>
+		</rollback>
+	</changeSet>
+	<!-- <changeSet id="1377019221153-7" author="amonteiro"> -->
+
+	<!-- </changeSet> -->
+	<changeSet author="amonteiro (generated)" id="1377019221153-15">
+		<dropColumn columnName="referral_name" tableName="billy_pt_customer_aud" />
+		<rollback>
+			<addColumn tableName="billy_pt_customer_aud">
+				<column name="referral_name" type="VARCHAR(255)"></column>
+			</addColumn>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>
