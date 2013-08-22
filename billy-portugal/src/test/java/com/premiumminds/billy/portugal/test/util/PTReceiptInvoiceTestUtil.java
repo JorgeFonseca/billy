@@ -1,23 +1,25 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -31,6 +33,7 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTReceiptInvoiceTestUtil {
 
@@ -64,14 +67,15 @@ public class PTReceiptInvoiceTestUtil {
 
 	public PTReceiptInvoiceEntity getReceiptInvoiceEntity(SourceBilling billing) {
 		PTReceiptInvoiceEntity invoice = (PTReceiptInvoiceEntity) this
-				.getReceiptInvoiceBuilder(business.getBusinessEntity(), billing).build();
+				.getReceiptInvoiceBuilder(business.getBusinessEntity(), billing)
+				.build();
 		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
-	public PTReceiptInvoice.Builder getReceiptInvoiceBuilder(PTBusinessEntity businessEntity,
-			SourceBilling billing) {
+	public PTReceiptInvoice.Builder getReceiptInvoiceBuilder(
+			PTBusinessEntity businessEntity, SourceBilling billing) {
 		PTReceiptInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTReceiptInvoice.Builder.class);
 
@@ -87,14 +91,20 @@ public class PTReceiptInvoiceTestUtil {
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
 
-		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
+		return invoiceBuilder
+				.setBilled(PTInvoiceTestUtil.BILLED)
 				.setCancelled(PTInvoiceTestUtil.CANCELLED)
-				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL)
+				.setDate(new Date())
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
-				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setCustomerUID(customerUID)
+				.setSourceBilling(billing)
 				.setBusinessUID(businessEntity.getUID())
-				.addPayment(payment.getPaymentBuilder());
+				.addPayment(payment.getPaymentBuilder())
+				.addPayment(
+						payment.getPaymentBuilder(new BigDecimal(80),
+								new Date(), PaymentMechanism.DEBIT_CARD));
 	}
 
 }

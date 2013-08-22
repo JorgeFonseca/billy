@@ -28,19 +28,20 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.Test;
 
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
-import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFExportHandler;
-import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoiceTemplateBundle;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
+import com.premiumminds.billy.portugal.services.export.pdf.receiptinvoice.PTReceiptInvoicePDFExportHandler;
+import com.premiumminds.billy.portugal.services.export.pdf.receiptinvoice.PTReceiptInvoiceTemplateBundle;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
-import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
+public class TestPTReceiptInvoicePDFExportHandler extends
+	PTPersistencyAbstractTest {
 
 	public static final int		NUM_ENTRIES					= 10;
-	public static final String	XSL_PATH					= "src/main/resources/pt_invoice.xsl";
+	public static final String	XSL_PATH					= "src/main/resources/pt_receiptinvoice.xsl";
 	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
 	public static final String	URI_PATH					= "file://"
 																	+ System.getProperty("java.io.tmpdir")
@@ -52,22 +53,25 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 		ExportServiceException, FileNotFoundException, URISyntaxException {
 		InputStream xsl = new FileInputStream(
-				TestPTInvoicePDFExportHandler.XSL_PATH);
+				TestPTReceiptInvoicePDFExportHandler.XSL_PATH);
 
-		PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(
-				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl,
-				TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
-		PTInvoicePDFExportHandler handler = new PTInvoicePDFExportHandler(
-				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
-		handler.toFile(new URI(TestPTInvoicePDFExportHandler.URI_PATH),
-				this.generatePTInvoice(), bundle);
+		PTReceiptInvoiceTemplateBundle bundle = new PTReceiptInvoiceTemplateBundle(
+				TestPTReceiptInvoicePDFExportHandler.LOGO_PATH, xsl,
+				TestPTReceiptInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+		PTReceiptInvoicePDFExportHandler handler = new PTReceiptInvoicePDFExportHandler(
+				PTAbstractTest.injector.getInstance(DAOPTReceiptInvoice.class));
+		handler.toFile(new URI(TestPTReceiptInvoicePDFExportHandler.URI_PATH),
+				this.generatePTReceiptInvoice(PaymentMechanism.CASH), bundle);
 	}
 
-	private PTInvoiceEntity generatePTInvoice() {
-		PTInvoiceTestUtil test = new PTInvoiceTestUtil(PTAbstractTest.injector);
-		PTInvoiceEntity invoice = test.getInvoiceEntity();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+	private PTReceiptInvoiceEntity generatePTReceiptInvoice(
+			PaymentMechanism paymentMechanism) {
 
-		return invoice;
+		PTReceiptInvoiceEntity receiptInvoice = new PTReceiptInvoiceTestUtil(
+				PTAbstractTest.injector).getReceiptInvoiceEntity();
+		receiptInvoice
+				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+
+		return receiptInvoice;
 	}
 }
