@@ -36,6 +36,7 @@
 
 	<persistence-unit name="BillyPortugalPersistenceUnit">
 		<description>billy persistence unit</description>
+	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<!-- <non-jta-data-source>java:/comp/env/jdbc/billy-datasource</non-jta-data-source> -->
 

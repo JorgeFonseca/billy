@@ -318,15 +318,44 @@
 				<version>2.0.3</version>
 				<executions>
 					<execution>
-<!-- 						<phase>process-resources</phase> -->
+						<!-- <phase>process-resources</phase> -->
 						<goals>
-<!-- 							<goal>generateChangeLog</goal> -->
+							<!-- <goal>generateChangeLog</goal> -->
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
 					<propertyFile>liquibase.properties</propertyFile>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>javax.inject</groupId>
+						<artifactId>javax.inject</artifactId>
+						<version>1</version>
+					</dependency>
+					<dependency>
+						<groupId>com.premiumminds</groupId>
+						<artifactId>billy-core</artifactId>
+						<version>1.0</version>
+						<type>test-jar</type>
+						<scope>test</scope>
+					</dependency>
+					<dependency>
+						<groupId>com.premiumminds</groupId>
+						<artifactId>billy-core-jpa</artifactId>
+						<version>1.0</version>
+					</dependency>
+					<dependency>
+						<groupId>com.premiumminds</groupId>
+						<artifactId>billy-portugal</artifactId>
+						<version>1.0</version>
+					</dependency>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-entitymanager</artifactId>
+						<version>4.2.3.Final</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

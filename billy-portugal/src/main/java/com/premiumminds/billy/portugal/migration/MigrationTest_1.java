@@ -18,19 +18,27 @@
  */
 package com.premiumminds.billy.portugal.migration;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.premiumminds.billy.core.persistence.entities.jpa.QJPACustomerEntity;
+import javax.persistence.EntityManager;
 
 import liquibase.change.custom.CustomTaskChange;
 import liquibase.database.Database;
-import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.CustomChangeException;
 import liquibase.exception.SetupException;
 import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
 
-public class MigrationTest_1 implements CustomTaskChange {
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.mysema.query.jpa.impl.JPAUpdateClause;
+import com.premiumminds.billy.core.persistence.dao.DAO;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
+import com.premiumminds.billy.portugal.PortugalDependencyModule;
+import com.premiumminds.billy.portugal.PortugalPersistenceDependencyModule;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCustomerEntity;
 
+public class MigrationTest_1 implements CustomTaskChange {
+	
 	@Override
 	public String getConfirmationMessage() {
 		// TODO Auto-generated method stub
@@ -39,8 +47,6 @@ public class MigrationTest_1 implements CustomTaskChange {
 
 	@Override
 	public void setFileOpener(ResourceAccessor arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -56,13 +62,29 @@ public class MigrationTest_1 implements CustomTaskChange {
 	}
 
 	@Override
-	public void execute(Database arg0) throws CustomChangeException {
+	public void execute(Database database) throws CustomChangeException {
+		Injector injector = Guice.createInjector(
+				new PortugalDependencyModule(),
+				new PortugalPersistenceDependencyModule());
+		injector.getInstance(PortugalDependencyModule.Initializer.class);
+		injector.getInstance(PortugalPersistenceDependencyModule.Initializer.class);
+		final EntityManager em = injector.getInstance(EntityManager.class);
+		final QJPAPTCustomerEntity customer = QJPAPTCustomerEntity.jPAPTCustomerEntity;
+		
+		DAO<?> dao = injector.getInstance(DAOPTCustomer.class);
 
-//		JdbcConnection dbConn = (JdbcConnection) arg0.getConnection();
-//		
-//		try {
-//			dbConn.
-//		}
+		try {
+			new TransactionWrapper<Void>(dao) {
+
+				@Override
+				public Void runTransaction() throws Exception {
+					
+					return null;
+					}
+				}.execute();
+		} catch(Exception e) {
+			
+		}
 	}
 
 }
